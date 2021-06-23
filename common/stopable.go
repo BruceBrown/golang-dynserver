@@ -1,4 +1,4 @@
-package interfaces
+package common
 
 type Stopable interface {
 	Stop() bool
