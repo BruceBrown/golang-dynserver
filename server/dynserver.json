@@ -1,0 +1,13 @@
+{
+    "plugins": [
+        "../plugins/test/test",
+        "../plugins/other/other"
+    ],
+    "b": [
+        "2",
+        "3"
+    ],
+    "c": [
+        "3"
+    ]
+}

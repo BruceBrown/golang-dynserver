@@ -8,7 +8,7 @@ import (
 
 // called onetime, when loaded
 func init() {
-	fmt.Println("init called")
+	fmt.Println("other init called")
 }
 
 type Test struct {
@@ -16,15 +16,15 @@ type Test struct {
 }
 
 func (test Test) Start() bool {
-	fmt.Println("test started")
+	fmt.Println("other started")
 	return true
 }
 func (test Test) Stop() bool {
-	fmt.Println("test stopped")
+	fmt.Println("other stopped")
 	return true
 }
 func (test Test) CreateConnection() common.Connection {
-	fmt.Println("test creating connection")
+	fmt.Println("other creating connection")
 	return TestConnection{}
 }
 
@@ -33,21 +33,21 @@ type TestConnection struct {
 }
 
 func (conn TestConnection) Start() bool {
-	fmt.Println("test connection started")
+	fmt.Println("other connection started")
 	return true
 }
 func (conn TestConnection) Stop() bool {
-	fmt.Println("test connection stopped")
+	fmt.Println("other connection stopped")
 	return true
 }
 func (conn TestConnection) Run() bool {
-	fmt.Println("test connection running")
+	fmt.Println("other connection running")
 	return true
 }
 
 // return the runable factory
 func GetFactory() common.ConnectionFactory {
-	fmt.Println("test GetFactory")
+	fmt.Println("other GetFactory")
 
 	return test
 }
