@@ -1,13 +1,12 @@
 {
     "plugins": [
-        "../plugins/test/test",
-        "../plugins/other/other"
-    ],
-    "b": [
-        "2",
-        "3"
-    ],
-    "c": [
-        "3"
+        {
+            "spec": "../plugins/test/test",
+            "ip": "127.0.0.0",
+            "port": 9999
+        },
+        {
+            "spec": "../plugins/other/other"
+        }
     ]
 }

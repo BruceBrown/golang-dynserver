@@ -13,6 +13,7 @@ func init() {
 
 type Test struct {
 	common.ConnectionFactory
+	initialized bool
 }
 
 func (test Test) Start() bool {
@@ -46,9 +47,11 @@ func (conn TestConnection) Run() bool {
 }
 
 // return the runable factory
-func GetFactory() common.ConnectionFactory {
+func GetFactory(config common.ConnectorConfig) common.ConnectionFactory {
 	fmt.Println("other GetFactory")
-
+	if !test.initialized {
+		test = Test{initialized: true}
+	}
 	return test
 }
 

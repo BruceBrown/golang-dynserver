@@ -13,6 +13,9 @@ func init() {
 
 type Test struct {
 	common.ConnectionFactory
+	initialized bool
+	ip          string
+	port        uint16
 }
 
 func (test Test) Start() bool {
@@ -46,9 +49,12 @@ func (conn TestConnection) Run() bool {
 }
 
 // return the runable factory
-func GetFactory() common.ConnectionFactory {
+func GetFactory(config common.ConnectorConfig) common.ConnectionFactory {
 	fmt.Println("test GetFactory")
 
+	if !test.initialized {
+		test = Test{initialized: true, ip: config.IpAddr, port: config.Port}
+	}
 	return test
 }
 

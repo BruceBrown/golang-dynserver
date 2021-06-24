@@ -11,12 +11,14 @@ import (
 
 type MyType map[string][]string
 
-type TestJson struct {
-	plugins []string
+type ConfigJson struct {
+	Plugins []common.ConnectorConfig `json:"plugins"`
+	B       []string                 `json:"b"`
+	C       []string                 `json:"c"`
 }
 
 func main() {
-	var data MyType
+	var data = ConfigJson{}
 
 	file, err := ioutil.ReadFile("dynserver.json")
 	if err != nil {
@@ -28,11 +30,11 @@ func main() {
 		fmt.Println("failed to unmarshal dynserver.json")
 		panic(err)
 	}
-	names := data["plugins"]
+
 	var factories []common.ConnectionFactory
 	var connections []common.Connection
-	for _, v := range names {
-		name := v + ".so"
+	for _, cfg := range data.Plugins {
+		name := cfg.Spec + ".so"
 		p, err := plugin.Open(name)
 		if err != nil {
 			fmt.Println("plugin open failed", name)
@@ -43,8 +45,7 @@ func main() {
 			fmt.Println("plugin lookup failed")
 			panic(err)
 		}
-
-		factory := getFactory.(func() common.ConnectionFactory)()
+		factory := getFactory.(func(common.ConnectorConfig) common.ConnectionFactory)(cfg)
 		factories = append(factories, factory)
 
 		started := factory.Start()
